@@ -1,3 +1,5 @@
+//this file is named as trial2.ino on my pc, i renamed it to upload it on github
+
 #include <Servo.h>
 
 // Define pin constants
@@ -16,7 +18,7 @@ const int motorPin2 = 9;
 
 unsigned long servoStartTime = 0;
 unsigned long servo1EndTime = 0;
-unsigned long servoRunTime = 3000; // Run the servo for 3 seconds (3000 milliseconds)
+unsigned long servoRunTime = 3000; //  servo for 3 seconds
 
 void setup() {
   Serial.begin(9600);
@@ -30,7 +32,7 @@ void setup() {
   servo1.attach(10);
   servo2.attach(12);
   
-  // Initialize servo positions
+  // Initialize servo position
   servo1.write(0);
   servo2.write(0);
 
@@ -48,10 +50,10 @@ void loop() {
   digitalWrite(trigpin, LOW);
   long duration = pulseIn(echopin, HIGH);
 
-  // Calculate distance in centimeters
+  // distance in centimeters
   int distance = duration * 0.034 / 2;
 
-  // Print the distance
+  // Print distance
   Serial.print("Distance: ");
   Serial.print(distance);
   Serial.println(" cm");
@@ -59,9 +61,9 @@ void loop() {
   delay(2000);
 
   // Buzzer loop code
-  if (distance > 10 && distance <= 100) { // If ultrasonic sensor detects something
+  if (distance > 10 && distance <= 100) { // If ultrasonic sensor detects someone
     Serial.println("HUMAN DETECTED 10-100cm");
-    if (digitalRead(signalPin) == LOW) { // If proximity sensor detects a dish
+    if (digitalRead(signalPin) == LOW) { // If proximity sensor detects dish
       Serial.println("");
       Serial.println("PLATE IN NOW BUZZ");
       int kbuzzer = 2;
@@ -69,9 +71,9 @@ void loop() {
 
       while (kbuzzer > 0) {
         for (i = 0; i < 100; i++) {
-          digitalWrite(buzzerPin, HIGH); // Send tone
+          digitalWrite(buzzerPin, HIGH); // Send beep
           delay(1);
-          digitalWrite(buzzerPin, LOW);  // No tone
+          digitalWrite(buzzerPin, LOW);  // No beep
           delay(1);
         }
 
@@ -99,12 +101,12 @@ void loop() {
       }
       servo1.write(0); // Set servo1 to 0 degrees
 
-      // Delay before starting servo motor 2 (adjust this delay as needed)
+      // Delay before starting servo motor 2 
       delay(500);
       
       // Start servo motor 2
       servo2.write(360); // Set servo2 to 180 degrees
-      delay(1000); // Run servo2 for 2 seconds (adjust this duration as needed)
+      delay(1000); // Run servo2 for 2 seconds 
       servo2.write(0); // Set servo2 to 0 degrees
       delay(1000);
       servo2.write(360);
@@ -120,7 +122,7 @@ void loop() {
         delay(1);
       }
     } else {
-      Serial.println("PLATE ?"); // Proximity sensor detects no dish
+      Serial.println("PLATE ?"); // Prox sensor detects no dish
       Serial.println("");
     }
   } else {
